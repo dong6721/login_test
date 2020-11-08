@@ -1,35 +1,3 @@
-// var http = require("http");
-// var fs = require('fs');
-// var url = require('url');
-//
-// var app = http.createServer(function(request,response){
-//   var _url = request.url;
-//   var pathname = url.parse(_url,true).pathname;
-//   console.log(pathname);
-//   if(pathname === '/'){
-//     response.writeHead(302, {Location: `/login`});
-//     response.end('success');
-//   }
-//   else if(pathname === '/login') {
-//     response.writeHead(200);
-//     response.end(fs.readFileSync('login.html'));
-//   }
-//   else if(pathname === '/css/style.css')
-//   {
-//     //css
-//     fs.readFile('./css/style.css',(err,data) => {
-//       response.writeHead(200, {'Content-Type': 'text/css'});
-//       response.write(data);
-//       response.end();
-//     });
-//   }
-//   else {
-//       response.writeHead(404);
-//       response.end('Not found');
-//   }
-// });
-// app.listen(3000);
-
 const express = require('express');
 const path = require('path');
 const router = require('./routes/router.js');

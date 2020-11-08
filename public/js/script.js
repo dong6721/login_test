@@ -14,10 +14,22 @@ $(document).ready(function(){
 					"ps": $("#userpassword").val()
 				}),
 				success:(result)=>{
-					console.log("login success!",result);
+					console.log("login ",result);
+					if(result === "success!")
+					{
+						alert("login success!");
+					}
+					else if(result === "fail!")
+					{
+						alert("login fail!");
+					}
 				},
-				error:(reuqest,status,error)=>{
-					console.log("login error!",error);
+				error:(request,status,error)=>{
+					console.log("login error!",request.responseJSON.error);
+					if(request.responseJSON.error === "id not found")
+					{
+						 alert("찾을 수 없는 아이디입니다.");
+					}
 				}
 			});
 		}

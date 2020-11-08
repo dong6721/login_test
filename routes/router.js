@@ -34,15 +34,15 @@ router.use(bodyParser.urlencoded({ extended: true })) // for parsing application
 router.post('/login', (req,res,next) => {
     schema.findOne({userid : req.body.id}, (err,user) => {
       if(err){
-        console.log("find one error!",error);
+        console.log("find one error!",err);
         return res.status(500).json({error: err});
       }
       if(!user) {
         console.log("no data in db!");
-        return res.status(404).json({error: 'not found'});
+        return res.status(400).json({error: 'id not found'});
       }
       crypto.pbkdf2(req.body.ps, user.userpsbuf , 100000, 64, 'sha512',  (err, key)=> {
-        if(key == user.userps){
+        if(key.toString() === user.userps){
           res.json("success!");
         }
         else {
@@ -65,6 +65,7 @@ router.post('/register',(req,res,next) => {
       (err,user)=> {
         if(err)
           console.log("create fail",err);
+          res.json("create fail");
       });
       //console.log(toString(result));
       res.json("create success");
