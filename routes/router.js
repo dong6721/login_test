@@ -64,13 +64,20 @@ router.post('/register',(req,res,next) => {
       },
       (err,user)=> {
         if(err)
+        {
           console.log("create fail",err);
           res.json("create fail");
+        }
       });
       //console.log(toString(result));
       res.json("create success");
     });
   });
+});
+
+//login success action
+router.get('/success',(req,res,next) => {
+  res.send("test");
 });
 
 module.exports = router;

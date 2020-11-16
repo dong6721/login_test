@@ -3,7 +3,8 @@ const path = require('path');
 const router = require('./routes/router.js');
 const port = 3000;
 const app = express();
-var cookieParser = require('cookie-parser')
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 
 //get html
 app.set('view engine','ejs');
@@ -18,7 +19,17 @@ app.get('/',(req,res) => {
   res.render('view');
 });
 
-
+//session
+app.use(session({
+  resave:false,
+  saveUninitialized: false,
+  secret: process.env.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+  },
+  name: 'session-cookie',
+}));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
