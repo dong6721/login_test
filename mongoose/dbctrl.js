@@ -3,13 +3,13 @@ const model = require('./schema');
 module.exports = {
   fo: async (query)=>{
     //findOne Function
-    return await model.findOne({query});
+    return await model.findOne({userid:query});
   },
   cr: (id,ps,psbuf)=>{
-    schema.create({
-      userid: req.body.id,
-      userps: result,
-      userpsbuf: buf.toString('base64')
+    model.create({
+      userid: id,
+      userps: ps,
+      userpsbuf: psbuf
     },(err)=>{
       if(err){
         console.log(err);

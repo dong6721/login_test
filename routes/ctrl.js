@@ -5,12 +5,18 @@ module.exports = {
   //get
   //main_page
   login_page: (req,res,next)=> {
-    res.render('view');
-    next();
+    console.log(req.sessionID);
+    if(req.session.login === "login"){
+      req.session.login = "test";
+      res.redirect('/success');
+    }
+    else {
+      res.render('view');
+    }
   },
   //login success
   login_success_page: (req,res,next)=>{
-    res.send("success");
+    res.send('success');
   },
 
   //post
@@ -22,11 +28,14 @@ module.exports = {
         console.log("no data in DB!");
         res.status(400).json({error: 'id not found'});
       }
-      crypto.pbkdf2(req.body.ps, user.userpsbuf , 100000, 64, 'sha512', (err,key)=>{
-        if(key.toString() === user.userps){
+      crypto.pbkdf2(req.body.ps, doc.userpsbuf , 100000, 64, 'sha512', (err,key)=>{
+        if(key.toString().trim() == doc.userps){
+          req.session.login = "login";    //로그인 세션인증이 필요.
+          console.log("login success");
           res.json("success!");
         }
         else {
+          console.log("login fail");
           res.json("fail!");
         }
       })

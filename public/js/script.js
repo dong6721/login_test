@@ -18,6 +18,7 @@ $(document).ready(function(){
 					if(result === "success!")
 					{
 						alert("login success!");
+						location.href = '/success';
 					}
 					else if(result === "fail!")
 					{
